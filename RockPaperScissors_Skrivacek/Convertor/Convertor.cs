@@ -4,9 +4,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace RockPaperScissors_Skrivacek.Convertor
 {
@@ -18,12 +19,12 @@ namespace RockPaperScissors_Skrivacek.Convertor
             int number = (int)value;
             switch (number)
             {
-                case 3:
-                    return Application.Current.MainWindow.FindResource("scissors");
-                case 2:
-                    return Application.Current.MainWindow.FindResource("paper");
                 case 1:
                     return Application.Current.MainWindow.FindResource("rock");
+                case 2:
+                    return Application.Current.MainWindow.FindResource("paper");
+                case 3:
+                    return Application.Current.MainWindow.FindResource("scissors");
                 default:
                     return new BitmapImage();
             }

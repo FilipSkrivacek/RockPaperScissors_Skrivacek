@@ -34,7 +34,7 @@ namespace RockPaperScissors_Skrivacek.ViewModels
             Pc = Item.Nothing;        
             Running = false;
 
-            StartCommand = new RelayCommand(
+            StartButtonCommand = new RelayCommand(
                 () =>
                 {
                     PcScore = 0;
@@ -42,7 +42,7 @@ namespace RockPaperScissors_Skrivacek.ViewModels
                     User = Item.Nothing;
                     Pc = Item.Nothing;
                     Running = true;
-                    StartCommand.RaiseCanExecuteChanged();
+                    StartButtonCommand.RaiseCanExecuteChanged();
                     GameCommand.RaiseCanExecuteChanged();
 
                 },
@@ -54,21 +54,17 @@ namespace RockPaperScissors_Skrivacek.ViewModels
 
             GameCommand = new ParametrizedRelayCommand<string>(
                 (parameter) =>
-                {
-                    User = (Item)Convert.ToInt32(parameter);
+                {                  
                     Pc = (Item)_rnd.Next(1, Enum.GetNames(typeof(Item)).Length);
+                    User = (Item)Convert.ToInt32(parameter);
 
-                    if (User == Item.Rock && Pc == Item.Scissors ||
-                        User == Item.Paper && Pc == Item.Rock ||
-                        User == Item.Scissors && Pc == Item.Paper)
+                    if (Pc == Item.Paper && User == Item.Rock || Pc == Item.Scissors && User == Item.Paper || Pc == Item.Rock && User == Item.Scissors)
                     {
-                        UserScore = +1; /*!!!!!!!!!!!!!!!!*/
+                        PcScore++;
                     }
-                    else if (Pc == Item.Rock && User == Item.Scissors ||
-                        Pc == Item.Paper && User == Item.Rock ||
-                       Pc == Item.Scissors && User == Item.Paper)
+                    else if ( User == Item.Paper && Pc == Item.Rock || User == Item.Scissors && Pc == Item.Paper || User == Item.Rock && Pc == Item.Scissors)
                     {
-                        PcScore = +1;
+                        UserScore++;
                     }
 
                     if (UserScore == 5 || PcScore == 5)
@@ -76,7 +72,7 @@ namespace RockPaperScissors_Skrivacek.ViewModels
                         Running = false;
                     }
 
-                    StartCommand.RaiseCanExecuteChanged();
+                    StartButtonCommand.RaiseCanExecuteChanged();
                     GameCommand.RaiseCanExecuteChanged();
                 },
                 (parameter) =>
@@ -93,7 +89,7 @@ namespace RockPaperScissors_Skrivacek.ViewModels
         public Item Pc { get { return _pc; } set { _pc = value; NotifyPropertyChanged(); } }
         public int PcScore { get { return _pcscore; } set { _pcscore = value; NotifyPropertyChanged(); } }
         public bool Running { get { return _running; } set { _running = value; NotifyPropertyChanged(); } }
-        public RelayCommand StartCommand { get; set; }
+        public RelayCommand StartButtonCommand { get; set; }
         public ParametrizedRelayCommand<string> GameCommand { get; set; }
 
         internal enum Item

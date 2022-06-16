@@ -11,6 +11,7 @@
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
+        
     <Window.Resources>
         <BitmapImage x:Key="rock" UriSource="/Images/rock.bmp" />
         <BitmapImage x:Key="paper" UriSource="/Images/paper.bmp" />
@@ -32,35 +33,33 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
-        
-        
+
+
         <!--Buttons-->
         <Button Content="Kámen" Margin="10" Grid.Row="2" Command="{Binding GameCommand}" CommandParameter="1" />
         <Button Grid.Column="1" Content="Nůžky" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding GameCommand}" CommandParameter="3" />
         <Button Grid.Column="3" Content="Papír" Margin="10" Grid.Row="2" Command="{Binding GameCommand}" CommandParameter="2" />
-        
-        
-        <Button Content="Start" Margin="10" Grid.Row="3" Command="{Binding StartCommand}" />
-        
+        <Button Content="Start" Margin="10" Grid.Row="3" Command="{Binding StartButtonCommand}" />
+
         <!--Labels-->
-        <Label Content="Počítač" HorizontalAlignment="Center" Margin="10" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"/>
-        <Label Content="Hráč" HorizontalAlignment="Center" Margin="10" Grid.Row="1" VerticalAlignment="Center"/>
-        
+        <Label Content="Skóre Počítače" HorizontalAlignment="Center"  Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"/>
+        <Label Content="Skóre Hráče" HorizontalAlignment="Center"  Grid.Row="1" VerticalAlignment="Center"/>
+
         <!--Choosen items-->
-        <StackPanel Grid.Column="4" Grid.RowSpan="4" >
-            <Label Content="Hráč:"/>
-            <Label Content="{Binding User}" FontWeight="Bold"/>
-            <Label Content="Počítač:"/>
-            <Label Content="{Binding Pc}" FontWeight="Bold"/>
+        <StackPanel Grid.Column="4">
+            <Label Content="Hráč zvolil:"/>
+            <Label Content="{Binding User}" />
+            <Label Content="Počítač zvolil:"/>
+            <Label Content="{Binding Pc}"/>
         </StackPanel>
-        
+
         <!--Images-->
         <Image Height="100" Margin="10" Width="100" Source="{Binding User, Converter={StaticResource Convertor}}"/>
         <Image Height="100" Margin="10" Width="100" Grid.Column="3" Source="{Binding Pc, Converter={StaticResource Convertor}}"/>
-        
+
         <!--Score Labels-->
         <Label Grid.Column="1" Content="{Binding UserScore}" HorizontalAlignment="Center" Margin="10" Grid.Row="1" VerticalAlignment="Center"/>
         <Label Grid.Column="2" Content="{Binding PcScore}" HorizontalAlignment="Center" Margin="10" Grid.Row="1" VerticalAlignment="Center"/>
-        
+
     </Grid>
 </Window>
